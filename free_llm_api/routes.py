@@ -1,3 +1,11 @@
+"""This server offers RESTful APIs compatible with OpenAI. It supports the following functionalities:
+
+- Chat Completions (Reference: https://platform.openai.com/docs/api-reference/chat)
+- Completions (Reference: https://platform.openai.com/docs/api-reference/completions)
+- Embeddings (Reference: https://platform.openai.com/docs/api-reference/embeddings)
+
+"""
+
 from fastapi import APIRouter, HTTPException, Depends, Request
 import free_llm_api.config as config
 from free_llm_api.models import *
