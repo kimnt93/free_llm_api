@@ -71,7 +71,7 @@ curl http://0.0.0.0:8000/v1/embeddings \
 
 #### Completions Endpoint
 ```bash
-curl http://localhost:8000/v1/completions \
+curl http://0.0.0.0:8000/v1/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-3.5-turbo",
@@ -97,7 +97,7 @@ curl http://0.0.0.0:8000/v1/chat/completions \
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="http://0.0.0.0:8000/v1",)
+client = OpenAI(base_url="http://0.0.0.0:8000/v1", api_key="empty")
 ```
 
 #### Chat Completions Example
@@ -116,16 +116,11 @@ print(chat.choices[0].message.content)
 
 #### Completions Example
 ```python
-completion = client.chat.completions.create(
+completion = client.completions.create(
   model="gpt-3.5-turbo",
-  prompt=[
-    {
-      "role": "user",
-      "content": "Say this is a test",
-    },
-  ],
+  prompt="Say this is a test",
 )
-print(completion.choices[0].message.content)
+print(completion.choices[0].text)
 ```
 
 #### Text Embedding Example
@@ -144,14 +139,18 @@ For additional language modeling capabilities, you can explore Langchain. Visit 
 #### Initializing Models
 
 ```python
-from langchain_openai import OpenAI, OpenAIEmbeddings
-import os
+from langchain.chat_models import ChatOpenAI
+from langchain.embeddings import OpenAIEmbeddings
+
 
 # Initialize LLM model
-llm = OpenAI(openai_api_base=os.environ['OPENROUTER_API_KEY'], model_name="gpt-3.5-turbo")
+llm = ChatOpenAI(openai_api_base="http://0.0.0.0:8000/v1", openai_api_key="empty", model_name="gpt-3.5-turbo")
+llm.invoke("What is the meaning of life?")
+
 
 # Initialize Embedding model
-embeddings = OpenAIEmbeddings(openai_api_base=os.environ['OPENROUTER_API_KEY'], model="text-embedding-ada-002")
+embeddings = OpenAIEmbeddings(openai_api_base="http://0.0.0.0:8000/v1", openai_api_key="empty", model="text-embedding-ada-002")
+embeddings.embed_query("Hello world!")
 ```
 
 With Langchain, you can leverage the power of OpenAI's language models and text embeddings seamlessly within your Python applications.
