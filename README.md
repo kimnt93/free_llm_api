@@ -148,7 +148,7 @@ from langchain_openai import OpenAI, OpenAIEmbeddings
 import os
 
 # Initialize LLM model
-llm = OpenAI(openai_api_base=os.environ['OPENROUTER_API_KEY'], model_name=os.environ['OPENROUTER_MODEL'])
+llm = OpenAI(openai_api_base=os.environ['OPENROUTER_API_KEY'], model_name="gpt-3.5-turbo")
 
 # Initialize Embedding model
 embeddings = OpenAIEmbeddings(openai_api_base=os.environ['OPENROUTER_API_KEY'], model="text-embedding-ada-002")
