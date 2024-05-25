@@ -32,19 +32,24 @@ async def completions(request: Request):
 
 
 @router.post("/v1/embeddings", response_model=EmbeddingsResponse)
-async def get_embeddings(request: EmbeddingsRequest, model=Depends(get_model)):
+async def get_embeddings(request: Request, model=Depends(get_model)):
+    request_data = await request.json()
     try:
-        input_texts = [f"query: {request.input}"]
+        request_input = request_data['input'].__str__()
+        request_model = request_data['model']
+        input_texts = [f"query: {request_input}"]
         embeddings = model.encode(input_texts, normalize_embeddings=True).tolist()
-        num_tokens = len(model.tokenizer(request.input, max_length=512, padding=True, truncation=True, return_tensors='pt')["input_ids"][0])
+        num_tokens = len(model.tokenizer(request_input, max_length=512, padding=True, truncation=True, return_tensors='pt')["input_ids"][0])
 
         response = EmbeddingsResponse(
             object="list",
             data=[EmbeddingData(object="embedding", embedding=embeddings[0], index=0)],
-            model=request.model,
+            model=request_model,
             usage=EmbeddingsUsage(prompt_tokens=num_tokens, total_tokens=num_tokens)
         )
         return response
 
     except (ValueError, RuntimeError) as e:
         raise HTTPException(status_code=500, detail=f"Server error: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unknown exception {e}")
