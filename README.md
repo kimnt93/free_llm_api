@@ -10,31 +10,16 @@ cd free_llm_api
 pip install .
 ```
 
-## Usage
+## Configuration
 
-### Obtaining API Keys
-To use the OpenRouter API and integrate with the text embedding model, you must first register on OpenRouter's website [here](https://openrouter.ai/). After registration, navigate to the API Keys section [here](https://openrouter.ai/keys) to generate your API key.
-
-### Selecting Models
-For the `OPENROUTER_MODEL`, you can choose from a variety of models available on the OpenRouter platform. Visit the OpenRouter page [here](https://openrouter.ai/docs#models) to explore and select the desired model.
-
-For the `EMBEDDING_MODEL`, you can find the model from the massive text embedding collection available on the Hugging Face Spaces platform [here](https://huggingface.co/spaces/mteb/leaderboard).
-
-### Setting Environment Variables
-Once you have obtained your API key and selected the desired models, you need to set the environment variables accordingly. Replace `<Your OpenRouter API Key>` with your actual API key, and specify the chosen models.
-
-```bash
-export OPENROUTER_API_KEY=<Your OpenRouter API Key>
-export OPENROUTER_MODEL=meta-llama/llama-3-8b-instruct:free
-export EMBEDDING_MODEL=intfloat/multilingual-e5-small
-```
+Example under config.yaml file
 
 ### Running the Application
 
 You can run the application using the command line interface (CLI) by executing:
 
 ```bash
-free_llm_api --host 0.0.0.0 --port 8000
+free_llm_api --host 0.0.0.0 --port 8000 --config_path config.yaml
 ```
 
 Alternatively, you can use Docker Compose to build and run the application:
@@ -64,7 +49,7 @@ Refer to the OpenAI's API documentation [here](https://platform.openai.com/docs/
 curl http://0.0.0.0:8000/v1/embeddings \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "text-embedding-ada-002",
+    "model": "local-e5-large-dim-1024",
     "input": "Hello world!"
   }'
 ```
@@ -127,7 +112,7 @@ print(completion.choices[0].text)
 ```python
 response = client.embeddings.create(
     input="Hello world!",
-    model="text-embedding-ada-002"
+    model="local-e5-large-dim-1024"
 )
 print(response.data[0].embedding)
 ```
@@ -149,7 +134,7 @@ llm.invoke("What is the meaning of life?")
 
 
 # Initialize Embedding model
-embeddings = OpenAIEmbeddings(openai_api_base="http://0.0.0.0:8000/v1", openai_api_key="empty", model="text-embedding-ada-002")
+embeddings = OpenAIEmbeddings(openai_api_base="http://0.0.0.0:8000/v1", openai_api_key="empty", model="local-e5-large-dim-1024")
 embeddings.embed_query("Hello world!")
 ```
 

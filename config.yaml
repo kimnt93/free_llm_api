@@ -1,0 +1,79 @@
+# LLM config
+# rpm: request per minute
+# tpm: token per minute
+llm:
+  # groq API
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "groq/llama3-8b-8192"
+      api_key: "your groq api key"
+      rpm: 30
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "groq/llama3-70b-8192"
+      api_key: "your groq api key"
+      rpm: 30
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "groq/mixtral-8x7b-32768"
+      api_key: "your groq api key"
+      rpm: 30
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "groq/gemma2-9b-it"
+      api_key: "your groq api key"
+      rpm: 30
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "groq/gemma-7b-it"
+      api_key: "your groq api key"
+      rpm: 30
+
+  # gemini api
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "gemini/gemini-1.5-pro-latest"
+      api_key: "your googleai api key"
+      rpm: 30
+      tpm: 1000000
+
+  # open router api
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "openrouter/mistralai/mistral-7b-instruct:free"
+      api_key: "your openrouter api key"
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "openrouter/meta-llama/llama-3-8b-instruct:free"
+      api_key: "your openrouter api key"
+  - model_name: "gpt-3.5-turbo"
+    litellm_params:
+      model: "openrouter/mistralai/mistral-7b-instruct:free"
+      api_key: "your openrouter api key"
+
+# litellm embedding
+# https://docs.litellm.ai/docs/embedding/supported_embedding
+embedding:
+  - model_name: "huggingface-e5-large-dim-1024"
+    litellm_params:
+      model: "huggingface/intfloat/multilingual-e5-large"
+      api_key: "your huggingface token"
+      rpm: 30
+
+# Embedding config (Locally)
+# Model from: https://huggingface.co/spaces/mteb/leaderboard
+local_embedding:
+
+  # https://huggingface.co/intfloat/multilingual-e5-large
+  - model_name: "local-e5-large-dim-1024"
+    params:
+      pretrained: "intfloat/multilingual-e5-small"
+      prompt_template: "query: {query}" # prompt for retrieve task
+      cuda: false
+
+  # https://huggingface.co/dunzhang/stella_en_1.5B_v5
+  - model_name: "local-stella_en_1.5B_v5"
+    params:
+      pretrained: "dunzhang/stella_en_1.5B_v5"
+      prompt_template: "Instruct: Given a web search query, retrieve relevant passages that answer the query.\nQuery: {query}"  # prompt for retrieve task
+      cuda: false
