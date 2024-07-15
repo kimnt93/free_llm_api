@@ -1,6 +1,6 @@
 # Free LLM API
 
-This project serves as an interface to access the Free Large Language Model (LLM), offering an API that mimics the functionality of the OpenAI API. By leveraging the free OpenRouter model and a local embedding model, users can seamlessly interact with powerful language processing capabilities.
+With LiteLLM, we can access free Large Language Models (LLMs), offering an API that mimics the functionality of the OpenAI API. By leveraging the free model and a local embedding model, users can seamlessly interact with powerful language processing capabilities
 
 ## Installation
 Clone this repository and install

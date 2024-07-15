@@ -1,6 +1,9 @@
 # LLM config
 # rpm: request per minute
 # tpm: token per minute
+# You can get the api key from the provider's website
+# The model_name is used to identify the model in the code
+# model in litellm_params can be found at https://docs.litellm.ai/docs/providers
 llm:
   # groq API
   - model_name: "gpt-3.5-turbo"
