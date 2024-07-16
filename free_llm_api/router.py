@@ -5,8 +5,6 @@ from fastapi.responses import StreamingResponse
 from .models import LlmRouter
 from .utils import create_stream_generator
 
-os.environ['LITELLM_LOG'] = 'DEBUG'
-
 api_router = APIRouter()
 _LLM = None  # Initialize later with config_path
 

@@ -9,7 +9,7 @@ class EmbeddingModel:
         self.model_name = model_name
         self.pretrained = pretrained
         self.prompt_template = prompt_template
-        self.model = SentenceTransformer(self.pretrained)
+        self.model = SentenceTransformer(self.pretrained, trust_remote_code=True)
         if cuda:
             self.model = self.model.to('cuda')
 
